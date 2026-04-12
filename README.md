@@ -1,5 +1,7 @@
 # proxy-fleet
 
+[中文文档](README_CN.md)
+
 Manage multiple VPS proxy nodes from a single command line. Deploys [3x-ui](https://github.com/MHSanaei/3x-ui) + VLESS+Reality and generates a [Clash/Mihomo](https://github.com/MetaCubeX/mihomo) subscription URL that auto-updates when you add or remove nodes.
 
 ## Features
@@ -21,7 +23,7 @@ Manage multiple VPS proxy nodes from a single command line. Deploys [3x-ui](http
 
 ```bash
 # 1. Clone
-git clone https://github.com/yourname/proxy-fleet.git
+git clone https://github.com/oaker-io/proxy-fleet.git
 cd proxy-fleet
 
 # 2. Interactive setup — creates config.json
