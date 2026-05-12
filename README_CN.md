@@ -8,7 +8,7 @@
 - **订阅同步** — 从每个节点的 API 拉取实时状态，重新生成 Clash YAML，订阅永远反映真实配置
 - **NAT 支持** — `--nat 10000-10009` 自动在端口段内选择可用端口
 - **舰队状态** — 并行健康检查，显示所有节点的连通性和流量统计
-- **模块化规则** — AI 服务、流媒体、通用代理、国内直连规则分文件管理，改完 `sync` 即生效
+- **白名单模式** — 基于 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) 的 rule-provider，国内域名/IP 自动直连，其余全走代理。AI 服务强制代理，规则每日自动更新
 
 ## 环境要求
 
@@ -67,9 +67,8 @@ SSH 连接 → 扫描已占用端口 → 自动选可用端口
 | 分组 | 用途 |
 |------|------|
 | 🤖 AI Services | OpenAI、Claude、Gemini、Copilot、Cursor、Midjourney 等 — 优先走美国节点 |
-| 🚀 Proxy | Google、GitHub、Twitter、Telegram、Discord 等 — 优先走低延迟节点 |
-| 🎬 Streaming | YouTube、Netflix、Spotify、Twitch |
-| 🐟 Final | 兜底规则 |
+| 🚀 Proxy | 未匹配的海外流量 — 优先走低延迟节点 |
+| 🐟 Final | 兜底规则（白名单模式下默认走代理） |
 
 ## 文件结构
 
@@ -80,10 +79,8 @@ proxy-fleet/
 ├── scripts/
 │   └── fleet.py             # 主脚本
 └── templates/rules/
-    ├── ai.yaml              # AI 服务分流规则
-    ├── proxy.yaml           # 常用代理站点规则
-    ├── streaming.yaml       # 流媒体规则
-    └── direct.yaml          # 国内直连 / 局域网规则
+    ├── ai.yaml              # AI 服务规则 (必须走代理)
+    └── direct.yaml          # 自定义直连 (国内 AI、补充条目)
 ```
 
 ## 更新规则
@@ -95,6 +92,8 @@ python3 scripts/fleet.py sync
 ```
 
 用户在 Clash Verge Rev 中刷新订阅即可拿到最新规则。
+
+> **白名单模式说明**：国内域名和 IP 的规则由 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) 的 rule-provider 自动提供（每 24 小时更新），无需手动维护。`direct.yaml` 仅用于补充 rule-provider 可能遗漏的条目（如较新的国内 AI 服务）。未匹配到任何规则的流量默认走代理。
 
 ## 技术备注
 

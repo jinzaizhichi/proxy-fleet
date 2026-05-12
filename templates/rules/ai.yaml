@@ -1,12 +1,13 @@
-# AI 服务分流规则
+# AI 服务分流规则 (必须走代理)
 # 目标代理组: 🤖 AI Services
 
-# OpenAI / ChatGPT
+# OpenAI / ChatGPT / DALL-E / Sora
 - DOMAIN-SUFFIX,openai.com,🤖 AI Services
 - DOMAIN-SUFFIX,chatgpt.com,🤖 AI Services
 - DOMAIN-SUFFIX,oaistatic.com,🤖 AI Services
 - DOMAIN-SUFFIX,oaiusercontent.com,🤖 AI Services
 - DOMAIN-SUFFIX,sora.com,🤖 AI Services
+- DOMAIN-SUFFIX,openaiapi-site.azureedge.net,🤖 AI Services
 - DOMAIN-KEYWORD,openai,🤖 AI Services
 
 # Anthropic / Claude
@@ -14,7 +15,7 @@
 - DOMAIN-SUFFIX,claude.ai,🤖 AI Services
 - DOMAIN-KEYWORD,anthropic,🤖 AI Services
 
-# Google AI / Gemini
+# Google AI / Gemini / DeepMind
 - DOMAIN-SUFFIX,gemini.google.com,🤖 AI Services
 - DOMAIN-SUFFIX,aistudio.google.com,🤖 AI Services
 - DOMAIN-SUFFIX,generativelanguage.googleapis.com,🤖 AI Services
@@ -22,20 +23,37 @@
 - DOMAIN-SUFFIX,deepmind.com,🤖 AI Services
 - DOMAIN-SUFFIX,notebooklm.google,🤖 AI Services
 - DOMAIN-SUFFIX,notebooklm.google.com,🤖 AI Services
+- DOMAIN-SUFFIX,ai.google,🤖 AI Services
+- DOMAIN-SUFFIX,ai.google.dev,🤖 AI Services
+- DOMAIN-SUFFIX,makersuite.google.com,🤖 AI Services
+- DOMAIN-SUFFIX,alkalimakersuite-pa.clients6.google.com,🤖 AI Services
 
 # Microsoft Copilot / Azure OpenAI
 - DOMAIN-SUFFIX,copilot.microsoft.com,🤖 AI Services
 - DOMAIN-SUFFIX,copilot.cloud.microsoft,🤖 AI Services
 - DOMAIN-SUFFIX,openai.azure.com,🤖 AI Services
-- DOMAIN-KEYWORD,copilot,🤖 AI Services
+- DOMAIN-SUFFIX,oai.azure.com,🤖 AI Services
 
 # GitHub Copilot
 - DOMAIN-SUFFIX,githubcopilot.com,🤖 AI Services
 - DOMAIN-SUFFIX,copilot-proxy.githubusercontent.com,🤖 AI Services
+- DOMAIN-SUFFIX,copilot-telemetry.githubusercontent.com,🤖 AI Services
 
 # Cursor
 - DOMAIN-SUFFIX,cursor.sh,🤖 AI Services
 - DOMAIN-SUFFIX,cursor.com,🤖 AI Services
+- DOMAIN-SUFFIX,cursor.so,🤖 AI Services
+
+# Windsurf / Codeium
+- DOMAIN-SUFFIX,codeium.com,🤖 AI Services
+- DOMAIN-SUFFIX,windsurf.com,🤖 AI Services
+- DOMAIN-SUFFIX,windsurf.ai,🤖 AI Services
+
+# Tabnine
+- DOMAIN-SUFFIX,tabnine.com,🤖 AI Services
+
+# Sourcegraph / Cody
+- DOMAIN-SUFFIX,sourcegraph.com,🤖 AI Services
 
 # Perplexity
 - DOMAIN-SUFFIX,perplexity.ai,🤖 AI Services
@@ -46,6 +64,10 @@
 # Mistral
 - DOMAIN-SUFFIX,mistral.ai,🤖 AI Services
 
+# xAI / Grok
+- DOMAIN-SUFFIX,x.ai,🤖 AI Services
+- DOMAIN-SUFFIX,grok.com,🤖 AI Services
+
 # Meta AI / Llama
 - DOMAIN-SUFFIX,ai.meta.com,🤖 AI Services
 - DOMAIN-SUFFIX,llama.meta.com,🤖 AI Services
@@ -53,9 +75,11 @@
 # Hugging Face
 - DOMAIN-SUFFIX,huggingface.co,🤖 AI Services
 - DOMAIN-SUFFIX,hf.co,🤖 AI Services
+- DOMAIN-SUFFIX,huggingface.com,🤖 AI Services
 
 # Stability AI
 - DOMAIN-SUFFIX,stability.ai,🤖 AI Services
+- DOMAIN-SUFFIX,stabilityai.com,🤖 AI Services
 
 # Cohere
 - DOMAIN-SUFFIX,cohere.com,🤖 AI Services
@@ -68,12 +92,20 @@
 - DOMAIN-SUFFIX,together.ai,🤖 AI Services
 - DOMAIN-SUFFIX,together.xyz,🤖 AI Services
 
+# Fireworks AI
+- DOMAIN-SUFFIX,fireworks.ai,🤖 AI Services
+
 # Replicate
 - DOMAIN-SUFFIX,replicate.com,🤖 AI Services
 
-# Runway / Pika / Suno / ElevenLabs
+# Runway / Pika / Luma / Ideogram / Leonardo
 - DOMAIN-SUFFIX,runwayml.com,🤖 AI Services
 - DOMAIN-SUFFIX,pika.art,🤖 AI Services
+- DOMAIN-SUFFIX,lumalabs.ai,🤖 AI Services
+- DOMAIN-SUFFIX,ideogram.ai,🤖 AI Services
+- DOMAIN-SUFFIX,leonardo.ai,🤖 AI Services
+
+# Suno / ElevenLabs (AI 音频)
 - DOMAIN-SUFFIX,suno.com,🤖 AI Services
 - DOMAIN-SUFFIX,suno.ai,🤖 AI Services
 - DOMAIN-SUFFIX,elevenlabs.io,🤖 AI Services
@@ -81,10 +113,21 @@
 # Vercel AI / v0
 - DOMAIN-SUFFIX,v0.dev,🤖 AI Services
 
-# xAI / Grok
-- DOMAIN-SUFFIX,x.ai,🤖 AI Services
-- DOMAIN-SUFFIX,grok.com,🤖 AI Services
-
-# Bolt / Replit
+# Bolt / Replit / Lovable (AI 编程平台)
 - DOMAIN-SUFFIX,bolt.new,🤖 AI Services
+- DOMAIN-SUFFIX,stackblitz.com,🤖 AI Services
 - DOMAIN-SUFFIX,replit.com,🤖 AI Services
+- DOMAIN-SUFFIX,replit.dev,🤖 AI Services
+- DOMAIN-SUFFIX,lovable.dev,🤖 AI Services
+- DOMAIN-SUFFIX,lovable.app,🤖 AI Services
+
+# Character AI / Inflection
+- DOMAIN-SUFFIX,character.ai,🤖 AI Services
+- DOMAIN-SUFFIX,inflection.ai,🤖 AI Services
+- DOMAIN-SUFFIX,pi.ai,🤖 AI Services
+
+# Weights & Biases (ML 平台)
+- DOMAIN-SUFFIX,wandb.ai,🤖 AI Services
+
+# Reka AI
+- DOMAIN-SUFFIX,reka.ai,🤖 AI Services

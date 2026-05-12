@@ -326,16 +326,56 @@ def verify_port(server, port, timeout=10):
 # ── Subscription Generator ───────────────────────────────────
 
 def load_rules():
-    """Load all rule template files in order."""
-    rules = []
-    for name in ["ai", "streaming", "proxy", "direct"]:
+    """Load rule templates and compose whitelist-mode rule list.
+
+    Rule priority (top = highest):
+      1. AI services (inline)        → 🤖 AI Services
+      2. Applications (rule-provider)→ DIRECT
+      3. Reject ads (rule-provider)  → REJECT
+      4. Custom direct (inline)      → DIRECT  (China AI, .cn, etc.)
+      5. Telegram CIDRs (provider)   → 🚀 Proxy
+      6. Private domains (provider)  → DIRECT
+      7. Apple (provider)            → DIRECT
+      8. iCloud (provider)           → DIRECT
+      9. China domains (provider)    → DIRECT
+     10. China CIDRs (provider)      → DIRECT
+     11. LAN CIDRs (provider)        → DIRECT
+     12. GEOIP CN                    → DIRECT
+     13. MATCH                       → 🐟 Final (default proxy)
+    """
+    def _load_inline(name):
+        lines = []
         path = RULES_DIR / f"{name}.yaml"
         if path.exists():
             for line in path.read_text().splitlines():
                 line = line.strip()
                 if line and not line.startswith("#"):
-                    rules.append(line)
+                    lines.append(line)
+        return lines
+
+    rules = []
+
+    # Inline rules (manually curated, highest priority)
+    rules += _load_inline("ai")
+
+    # Rule-provider references (Loyalsoldier/clash-rules, auto-updating)
+    rules.append("- RULE-SET,applications,DIRECT")
+    rules.append("- RULE-SET,reject,REJECT")
+
+    # Custom direct rules (China AI services, .cn TLD, etc.)
+    rules += _load_inline("direct")
+
+    # Remote rule-provider references (continued)
+    rules.append("- RULE-SET,telegramcidr,🚀 Proxy,no-resolve")
+    rules.append("- RULE-SET,private,DIRECT")
+    rules.append("- RULE-SET,apple,DIRECT")
+    rules.append("- RULE-SET,icloud,DIRECT")
+    rules.append("- RULE-SET,direct,DIRECT")
+    rules.append("- RULE-SET,cncidr,DIRECT,no-resolve")
+    rules.append("- RULE-SET,lancidr,DIRECT,no-resolve")
+    rules.append("- GEOIP,CN,DIRECT")
     rules.append("- MATCH,🐟 Final")
+
     return rules
 
 def generate_subscription(cfg, node_details):
@@ -473,19 +513,34 @@ def generate_subscription(cfg, node_details):
     lines.append("      - DIRECT")
     lines.append("")
 
-    lines.append('  - name: "🎬 Streaming"')
-    lines.append("    type: select")
-    lines.append("    proxies:")
-    lines.append('      - "🚀 Proxy"')
-    for n in proxy_names:
-        lines.append(f'      - "{n}"')
-    lines.append("")
-
     lines.append('  - name: "🐟 Final"')
     lines.append("    type: select")
     lines.append("    proxies:")
     lines.append('      - "🚀 Proxy"')
     lines.append("      - DIRECT")
+    lines.append("")
+
+    # Rule providers (Loyalsoldier/clash-rules — auto-updates daily)
+    lines.append("rule-providers:")
+    _providers = [
+        ("reject",       "domain",    "reject.txt"),
+        ("private",      "domain",    "private.txt"),
+        ("apple",        "domain",    "apple.txt"),
+        ("icloud",       "domain",    "icloud.txt"),
+        ("direct",       "domain",    "direct.txt"),
+        ("applications", "classical", "applications.txt"),
+        ("cncidr",       "ipcidr",    "cncidr.txt"),
+        ("lancidr",      "ipcidr",    "lancidr.txt"),
+        ("telegramcidr", "ipcidr",    "telegramcidr.txt"),
+    ]
+    _base = "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release"
+    for pname, behavior, filename in _providers:
+        lines.append(f"  {pname}:")
+        lines.append(f"    type: http")
+        lines.append(f"    behavior: {behavior}")
+        lines.append(f'    url: "{_base}/{filename}"')
+        lines.append(f"    path: ./ruleset/{pname}.yaml")
+        lines.append(f"    interval: 86400")
     lines.append("")
 
     lines.append("rules:")

@@ -10,7 +10,7 @@ Manage multiple VPS proxy nodes from a single command line. Deploys [3x-ui](http
 - **Subscription sync** — queries every node's live API state and regenerates the Clash YAML, so the subscription always reflects reality.
 - **NAT support** — pass `--nat 10000-10009` and it picks the first free port in that range.
 - **Fleet status** — parallel health check across all nodes with traffic stats.
-- **Modular rules** — AI services, streaming, general proxy, and China-direct rules in separate template files. Edit and `sync`.
+- **Whitelist mode** — Uses [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) rule-providers for comprehensive China domain/IP direct routing, everything else proxied. AI services always proxied. Rules auto-update daily.
 
 ## Requirements
 
@@ -69,9 +69,8 @@ The generated Clash YAML is uploaded to one of your VPS nodes via SSH. You serve
 | Group | Purpose |
 |-------|---------|
 | 🤖 AI Services | OpenAI, Claude, Gemini, Copilot, Cursor, Midjourney, etc. — routes to US nodes first |
-| 🚀 Proxy | Google, GitHub, Twitter, Telegram, Discord, etc. — routes to nearest nodes first |
-| 🎬 Streaming | YouTube, Netflix, Spotify, Twitch |
-| 🐟 Final | Catch-all fallback |
+| 🚀 Proxy | Unmatched foreign traffic — routes to nearest nodes first |
+| 🐟 Final | Catch-all fallback (defaults to proxy in whitelist mode) |
 
 ## File Structure
 
@@ -82,10 +81,8 @@ proxy-fleet/
 ├── scripts/
 │   └── fleet.py             # Main CLI script
 └── templates/rules/
-    ├── ai.yaml              # AI service routing rules
-    ├── proxy.yaml           # Common proxy site rules
-    ├── streaming.yaml       # Streaming service rules
-    └── direct.yaml          # China-direct / LAN rules
+    ├── ai.yaml              # AI services (must proxy)
+    └── direct.yaml          # Custom direct (China AI, supplements)
 ```
 
 ## Updating Rules

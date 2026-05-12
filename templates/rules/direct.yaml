@@ -1,34 +1,9 @@
-# 国内直连规则
+# 自定义直连规则 (补充 rule-provider 可能遗漏的条目)
 # 目标代理组: DIRECT
+# 注意: 大部分国内域名和 IP 由 Loyalsoldier rule-provider 自动覆盖
 
-# 常见国内域名
+# .cn 顶级域名直连
 - DOMAIN-SUFFIX,cn,DIRECT
-- DOMAIN-SUFFIX,baidu.com,DIRECT
-- DOMAIN-SUFFIX,bdstatic.com,DIRECT
-- DOMAIN-SUFFIX,bilibili.com,DIRECT
-- DOMAIN-SUFFIX,bilivideo.com,DIRECT
-- DOMAIN-SUFFIX,zhihu.com,DIRECT
-- DOMAIN-SUFFIX,weibo.com,DIRECT
-- DOMAIN-SUFFIX,douyin.com,DIRECT
-- DOMAIN-SUFFIX,tiktokv.com,DIRECT
-- DOMAIN-SUFFIX,taobao.com,DIRECT
-- DOMAIN-SUFFIX,tmall.com,DIRECT
-- DOMAIN-SUFFIX,jd.com,DIRECT
-- DOMAIN-SUFFIX,qq.com,DIRECT
-- DOMAIN-SUFFIX,weixin.qq.com,DIRECT
-- DOMAIN-SUFFIX,wechat.com,DIRECT
-- DOMAIN-SUFFIX,163.com,DIRECT
-- DOMAIN-SUFFIX,126.com,DIRECT
-- DOMAIN-SUFFIX,aliyun.com,DIRECT
-- DOMAIN-SUFFIX,aliyuncs.com,DIRECT
-- DOMAIN-SUFFIX,tencent.com,DIRECT
-- DOMAIN-SUFFIX,tencentcloud.com,DIRECT
-- DOMAIN-SUFFIX,xiaomi.com,DIRECT
-- DOMAIN-SUFFIX,meituan.com,DIRECT
-- DOMAIN-SUFFIX,douban.com,DIRECT
-- DOMAIN-SUFFIX,bytedance.com,DIRECT
-- DOMAIN-SUFFIX,feishu.cn,DIRECT
-- DOMAIN-SUFFIX,dingtalk.com,DIRECT
 
 # 国内 AI 服务直连
 - DOMAIN-SUFFIX,deepseek.com,DIRECT
@@ -39,15 +14,7 @@
 - DOMAIN-SUFFIX,01.ai,DIRECT
 - DOMAIN-SUFFIX,tongyi.aliyun.com,DIRECT
 - DOMAIN-SUFFIX,doubao.com,DIRECT
-
-# 局域网直连
-- DOMAIN-SUFFIX,local,DIRECT
-- DOMAIN-SUFFIX,localhost,DIRECT
-- IP-CIDR,10.0.0.0/8,DIRECT
-- IP-CIDR,172.16.0.0/12,DIRECT
-- IP-CIDR,192.168.0.0/16,DIRECT
-- IP-CIDR,127.0.0.0/8,DIRECT
-- IP-CIDR,100.64.0.0/10,DIRECT
-
-# GeoIP 中国直连
-- GEOIP,CN,DIRECT
+- DOMAIN-SUFFIX,kimi.ai,DIRECT
+- DOMAIN-SUFFIX,kimi.com,DIRECT
+- DOMAIN-SUFFIX,coze.com,DIRECT
+- DOMAIN-SUFFIX,coze.cn,DIRECT
