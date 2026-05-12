@@ -313,7 +313,7 @@ def query_node(host, cfg):
 
 # ── Verify ───────────────────────────────────────────────────
 
-def verify_port(server, port, timeout=5):
+def verify_port(server, port, timeout=10):
     """Check if a port is reachable from local machine."""
     r = subprocess.run(
         ["curl", "-sk", "-o", "/dev/null", "-w", "%{http_code}",
